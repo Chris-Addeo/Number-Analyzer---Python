@@ -1,0 +1,158 @@
+#The Choices
+print("Main Menu")
+print()
+print("1 - Find all prime numbers within a given range \n2 - Find all perfect numbers within a given range \n3 - Find all abundant numbers within a given range \n4 - Chart all even, odd, prime, perfect, and abundant numbers within a given range \n5 - Quit")
+choice = int(input("Your choice: "))
+while choice < 1 or choice > 5:
+    print("Invalid number, pick again.")
+    choice = int(input("Your choice: "))
+print()
+
+#Value Pick Function
+sv = 0
+ev = 0
+def pick():
+    global sv, ev
+    sv = int(input("Enter starting number (positive only): "))
+    while sv < 1:
+        print("Invalid, try again.")
+        sv = int(input("Enter starting number: "))
+    ev = int(input("Enter ending number: "))
+    while ev <= sv:
+        print("Invalid, pick a higher number.")
+        ev = int(input("Enter ending number: "))
+    print()
+    return sv, ev
+
+
+#Outcomes:
+
+#1) Primes
+if choice == 1:
+    pick()
+    print("##############")
+    for t in range(sv, ev+1):
+        for i in range(2, t):
+            if(t % i == 0):
+                break
+            else:
+                print(t)
+    print("##############\n")
+
+#2) Perfects
+elif choice == 2:
+    pick()
+    print("##############\n")
+    for t in range(sv,ev+1):
+        perfect = 0
+        if t > 1:
+            for i in range(1, t):
+                if (t % i) == 0:
+                    perfect += i
+        elif t == 1:
+            continue
+        else:
+            continue
+        #Check for Perfection!
+        if perfect == t:
+            print(t)
+        else:
+            continue
+    print("##############\n")
+
+#3) Abundants
+elif choice == 3:
+    pick()
+    print("##############\n")
+    for t in range(sv,ev+1):
+        perfect = 0
+        if t > 1:
+            for i in range(1, t):
+                if (t % i) == 0:
+                    perfect += i
+        elif t == 1:
+            continue
+        else:
+            continue
+        #Check for Perfection!
+        if t < perfect:
+            print(t)
+        else:
+            continue
+    print("##############\n")
+
+
+#4) ALL OF EM AND SOME MORE
+elif choice == 4:
+    pick()
+    
+    #Creating the Heading
+    for heading in ["Number","Even","Odd","Prime","Perfect","Abundant"]:
+        fh = format(heading, "<10s")
+        print(fh, "", end='', sep='')
+    print()
+    
+    #Creating the Loop
+    for t in range(sv,ev+1):
+        
+        #Create Spacing
+        sx = 10 - int(len(str(t)))
+        so = 11 - int(len(str(t)))
+        print(t, end="")
+
+        #Evens
+        if t % 2 == 0:
+            print(" "*sx+"x", end='')
+        else:
+            print(" "*so, end='')
+        
+        #Odds
+        if t % 2 == 0:
+            print(" "*so, end='')
+        else:
+            print(" "*sx+"x", end='')
+        
+        #Prime
+        for i in range(2, t):
+            if t == 2:
+                print(" "*sx+"x", end='')
+                break
+            elif t % i == 0:
+                print(" "*so, end='')
+                break
+            else:
+                print(" "*sx+"x", end='')
+                break
+        
+        #Perfect
+        perfect = 0
+        if t > 1:
+            for j in range(1, t):
+                if (t % j) == 0:
+                    perfect += j
+        else:
+            print(" "*so, end='')
+        #Check for Perfection!
+        if perfect == t:
+            print(" "*sx+"x", end='')
+        else:
+            print(" "*so, end='')
+        
+        #Abundant
+        perfect = 0
+        if t > 1:
+            for x in range(1, t):
+                if (t % x) == 0:
+                    perfect += x
+        else:
+            print(" "*so, end='')
+        #Check for Perfection!
+        if t < perfect:
+            print(" "*sx+"x", end='')
+        else:
+            print(" "*so, end='')
+        print()
+
+#5) Exit
+else:
+    print("Goodbye!")
